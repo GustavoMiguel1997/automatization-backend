@@ -16,9 +16,15 @@ const uploadController = (req, res) => {
     });
   }
 
+  console.log('will remove');
+
   removeFiles();
 
+  console.log('files removed');
+
   const file = getFile();
+  console.log('get File');
+
   const data = transformXslxIntoJson(file);
   const categories = getAllCategoties(data);
 
