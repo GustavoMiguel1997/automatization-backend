@@ -35,7 +35,7 @@ function compressFiles() {
   }
 }
 
-async function removeFiles() {
+function removeFiles() {
   const directory = getFilePath('../public/files');
   if (fs.existsSync(getFilePath('../public/files.zip'))) {
     fs.unlinkSync(getFilePath('../public/files.zip'));
@@ -51,6 +51,21 @@ async function removeFiles() {
         });
       }
     });
+  }
+}
+
+function validateFoldersExists() {
+  const publicFolderPath = getFilePath('../public');
+  const uploadFolderPath = getFilePath('../public/upload');
+  const filesFolderPath = getFilePath('../public/files');
+  generateFolders(publicFolderPath);
+  generateFolders(uploadFolderPath);
+  generateFolders(filesFolderPath);
+}
+
+function generateFolders(folderPath) {
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath);
   }
 }
 
@@ -79,4 +94,5 @@ module.exports = {
   generateAllFiles,
   compressFiles,
   removeFiles,
+  validateFoldersExists,
 };

@@ -5,6 +5,10 @@ const uploadController = require('../controllers/uploadFile');
 const getFileController = require('../controllers/getFiles');
 
 router.get('/getFiles', getFileController);
-router.post('/upload', uploadMiddleware.single('file'), uploadController);
+router.post(
+  '/upload',
+  [uploadMiddleware.validateFolders, uploadMiddleware.multer.single('file')],
+  uploadController
+);
 
 module.exports = router;
