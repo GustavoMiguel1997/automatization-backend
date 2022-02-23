@@ -4,7 +4,9 @@ const validateExtesions = require('../../helpers/extensionValidator');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    console.log('antes do destination');
     cb(null, path.join(__dirname, '../../public/upload'));
+    console.log('depois do destination');
   },
   filename: function (req, file, cb) {
     const fileExtension = file.originalname.split('.')[1];
