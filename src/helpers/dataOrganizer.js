@@ -42,7 +42,10 @@ function separeteDataByCategory(data, category, value) {
 }
 
 function getTotal(items, value) {
-  return items.reduce((acc, obj) => acc + obj[value], 0);
+  if (Number(items[0][value]) !== NaN) {
+    return items.reduce((acc, obj) => acc + Number(obj[value]), 0);
+  }
+  return 0;
 }
 
 /* a função não deve se limitar a ser de plano contas, pode ser qualquer categoria */
