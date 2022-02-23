@@ -4,7 +4,6 @@ const validateExtesions = require('../../helpers/extensionValidator');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log('STORAGE, MULTER', __dirname);
     cb(null, path.join(__dirname, '../../public/upload'));
   },
   filename: function (req, file, cb) {
