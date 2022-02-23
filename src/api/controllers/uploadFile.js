@@ -6,6 +6,8 @@ const {
 } = require('../../helpers/fileHelpers');
 
 const uploadController = (req, res) => {
+  console.log('UPLOAD ROUTER');
+
   res.setHeader('Content-Type', 'application/json');
 
   if (req.forbiddenExtension || !req.file) {
