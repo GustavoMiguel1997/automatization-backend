@@ -11,12 +11,15 @@ const {
 
 const getFiles = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  const category = 'Plano de Contas';
+
+  const category = req.query.category || 'Plano de Contas';
+  const valueField = req.query.valueField || 'Valor';
+
   const file = getFile();
   const data = transformXslxIntoJson(file);
 
   const { dataWithCategory, dataWithoutCategory, totalOfEachCategory } =
-    getDataOrganized(data, category);
+    getDataOrganized(data, category, valueField);
 
   if (dataWithCategory.length > 0) {
     generateAllFiles(dataWithCategory, category);
