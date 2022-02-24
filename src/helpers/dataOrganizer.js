@@ -1,4 +1,6 @@
-function getDataOrganized(data, category, value = 'Valor') {
+const { formatString, validateNumber } = require('./helpers');
+
+function getDataOrganized(data, category, value) {
   const { dataWithCategory, dataWithoutCategory, totalOfEachCategory } =
     separeteDataByCategory(data, category, value);
 
@@ -12,6 +14,23 @@ function getDataOrganized(data, category, value = 'Valor') {
 function getAllCategoties(data) {
   return Object.keys(data[0]);
 }
+
+/* Talvez migrar essas funçõs*/
+
+function validateCategory(categories, defaultCategory) {
+  const foundDefaultCategory = categories.find(
+    (currentCategory) =>
+      formatString(currentCategory) === formatString(defaultCategory)
+  );
+  return foundDefaultCategory ? defaultCategory : '';
+}
+
+function validateValueField(data, valueField) {
+  const [item] = data;
+  return validateNumber(item[valueField]) ? valueField : null;
+}
+
+/* Talvez migrar essas funçõs*/
 
 function separeteDataByCategory(data, category, value) {
   let dataWithCategory = [];
@@ -45,8 +64,8 @@ function separeteDataByCategory(data, category, value) {
 }
 
 function getTotal(items, value) {
-  if (Number(items[0][value]) !== NaN) {
-    return items.reduce((acc, obj) => acc + Number(obj[value]), 0);
+  if (validateNumber(items[0][value])) {
+    return items.reduce((acc, obj) => acc + validateNumber(obj[value]), 0);
   }
   return 0;
 }
@@ -64,4 +83,9 @@ function getChartOfAccounts(data, category) {
   return chartOfAccounts;
 }
 
-module.exports = { getDataOrganized, getAllCategoties };
+module.exports = {
+  getDataOrganized,
+  getAllCategoties,
+  validateValueField,
+  validateCategory,
+};

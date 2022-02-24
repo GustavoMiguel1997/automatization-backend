@@ -1,4 +1,8 @@
-const { getAllCategoties } = require('../../helpers/dataOrganizer');
+const {
+  getAllCategoties,
+  validateValueField,
+  validateCategory,
+} = require('../../helpers/dataOrganizer');
 const {
   getFile,
   transformXslxIntoJson,
@@ -18,17 +22,31 @@ const uploadController = (req, res) => {
 
   removeFiles();
 
+  /*  mandar essas strings para outro arquivo para manter isso */
+  const defaultCategory = 'Plano de Contas';
+  const defaultValueField = 'Valor';
+
   const file = getFile();
   const data = transformXslxIntoJson(file);
   const categories = getAllCategoties(data);
+
+  const defaultCategoryValidated = validateCategory(
+    categories,
+    defaultCategory
+  );
+
+  const defaultValueFieldValidated = validateValueField(
+    data,
+    defaultValueField
+  );
 
   res.status(200);
   return res.json({
     ok: true,
     message: 'Upload realizado com sucesso',
     categories,
-    defaultCategory: 'Plano de Contas',
-    defaultValueField: 'Valor',
+    defaultCategory: defaultCategoryValidated,
+    defaultValueField: defaultValueFieldValidated,
   });
 };
 
