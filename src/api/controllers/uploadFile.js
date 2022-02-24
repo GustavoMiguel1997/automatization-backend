@@ -27,6 +27,8 @@ const uploadController = (req, res) => {
     ok: true,
     message: 'Upload realizado com sucesso',
     categories,
+    defaultCategory: 'Plano de Contas',
+    defaultValueField: 'Valor',
   });
 };
 

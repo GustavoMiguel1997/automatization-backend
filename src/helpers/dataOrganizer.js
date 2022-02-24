@@ -16,7 +16,7 @@ function getAllCategoties(data) {
 function separeteDataByCategory(data, category, value) {
   let dataWithCategory = [];
   let dataWithoutCategory = [];
-  let totalOfEachCategory = {};
+  let totalOfEachCategory = [];
 
   const chartOfAccounts = getChartOfAccounts(data, category);
 
@@ -31,13 +31,16 @@ function separeteDataByCategory(data, category, value) {
       dataWithoutCategory = [...dataWithoutCategory, filteredWithoutCategory];
     }
 
-    totalOfEachCategory = { ...totalOfEachCategory, [chartOfAccount]: total };
+    totalOfEachCategory = [
+      ...totalOfEachCategory,
+      { [category]: chartOfAccount, Total: total },
+    ];
     dataWithCategory = [...dataWithCategory, filteredWithCategory];
   });
   return {
     dataWithCategory,
     dataWithoutCategory,
-    totalOfEachCategory: [totalOfEachCategory],
+    totalOfEachCategory: totalOfEachCategory,
   };
 }
 

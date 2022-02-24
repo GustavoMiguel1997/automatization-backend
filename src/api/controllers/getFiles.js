@@ -12,8 +12,7 @@ const {
 const getFiles = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
-  const category = req.query.category || 'Plano de Contas';
-  const valueField = req.query.valueField || 'Valor';
+  const { category, valueField } = req.query;
 
   const file = getFile();
   const data = transformXslxIntoJson(file);
